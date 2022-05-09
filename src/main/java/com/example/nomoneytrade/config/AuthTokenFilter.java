@@ -30,7 +30,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
             String jwt = jwtUtils.getJwtFromCookies(request);
             if (jwtUtils.validateJwtToken(jwt) && jwt != null) {
                 Long id = jwtUtils.getIdFromJwtToken(jwt);
-                UserDetails userDetails = userDetailsService.loadUserById(id)
+                UserDetails userDetails = userDetailsService.loadUserById(id);
             }
         }
     }

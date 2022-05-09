@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AppController {
     @GetMapping("/")
     public String index() {
-        return "<h1>Try to register</h1>";
+        return "<h1>Try to register. Ne poluchitsa ha-ha</h1>";
     }
 
     @GetMapping("/admin")
