@@ -56,8 +56,12 @@ public class UserDetailsImpl implements UserDetails {
         return isBanned;
     }
 
-    Long getId() {
+    public Long getId() {
         return id;
+    }
+
+    public String getEmail() {
+        return email;
     }
 
     public UserDetailsImpl(Long id, String username, String email, Boolean isBanned, Collection<? extends GrantedAuthority> roles, String password) {
