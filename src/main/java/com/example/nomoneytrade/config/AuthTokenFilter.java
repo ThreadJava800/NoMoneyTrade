@@ -5,7 +5,10 @@ import com.example.nomoneytrade.utils.JwtUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -29,9 +32,21 @@ public class AuthTokenFilter extends OncePerRequestFilter {
         try {
             String jwt = jwtUtils.getJwtFromCookies(request);
             if (jwtUtils.validateJwtToken(jwt) && jwt != null) {
-                Long id = jwtUtils.getIdFromJwtToken(jwt);
-                UserDetails userDetails = userDetailsService.loadUserById(id);
+                // getting username from jwt
+                String username = jwtUtils.getUsernameFromJwtToken(jwt);
+                // finding user by username
+                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+
+                // creating authorization object
+                UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+
+                // saving user in security context (in a secured way)
+                SecurityContextHolder.getContext().setAuthentication(auth);
             }
+        } catch (Exception e) {
+            logger.error("Povezlo-povezlo: " + e.toString());
         }
+        filterChain.doFilter(request, response);
     }
 }

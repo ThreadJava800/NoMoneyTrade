@@ -8,6 +8,9 @@ import javax.validation.constraints.Size;
 import com.example.nomoneytrade.utils.Constants;
 import com.example.nomoneytrade.utils.RoleEnum;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "users", uniqueConstraints = {
         @UniqueConstraint(columnNames = "username"),
@@ -33,19 +36,13 @@ public class User {
     @NotBlank
     private Boolean isBanned;
 
-    @NotBlank
-    @Enumerated(EnumType.STRING)
-    private RoleEnum role;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_roles",
+            joinColumns = @JoinColumn(name = "users"),
+            inverseJoinColumns = @JoinColumn(name = "roles"))
+    private Set<Role> roles = new HashSet<>();
 
     public User() {
-    }
-
-    public User(String username, String email, String password, RoleEnum role) {
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        this.role = role;
-        this.isBanned = false;
     }
 
     public Long getId() {
@@ -80,19 +77,26 @@ public class User {
         this.password = password;
     }
 
-    public Boolean isBanned() {
+    public Boolean getBanned() {
         return isBanned;
     }
 
-    public void setBanned(Boolean isBanned) {
-        this.isBanned = isBanned;
+    public void setBanned(Boolean banned) {
+        isBanned = banned;
     }
 
-    public RoleEnum getRole() {
-        return role;
+    public Set<Role> getRoles() {
+        return roles;
     }
 
-    public void setRole(RoleEnum role) {
-        this.role = role;
+    public void setRoles(HashSet<Role> roles) {
+        this.roles = roles;
+    }
+
+    public User(String username, String email, String password, RoleEnum role) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.isBanned = false;
     }
 }
