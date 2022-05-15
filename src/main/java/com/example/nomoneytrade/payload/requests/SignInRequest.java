@@ -1,15 +1,15 @@
 package com.example.nomoneytrade.payload.requests;
 
 public class SignInRequest {
-    private String username;
+    private String login;
     private String password;
 
-    public String getUsername() {
-        return username;
+    public String getLogin() {
+        return login;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setLogin(String username) {
+        this.login = username;
     }
 
     public String getPassword() {

@@ -10,12 +10,12 @@ public class AppController {
         return "<h1>Try to register. Ne poluchitsa ha-ha</h1>";
     }
 
-    @GetMapping("/admin")
+    @GetMapping("/admin_panel")
     public String admin() {
         return "<h1>Hey, admin</h1>";
     }
 
-    @GetMapping("/user")
+    @GetMapping("/users")
     public String user() {
         return "<h1>Hey, user!</h1>";
     }

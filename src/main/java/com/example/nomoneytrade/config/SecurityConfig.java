@@ -39,6 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
+        // default global auth. manager
         return super.authenticationManagerBean();
     }
 
@@ -49,17 +50,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        // configuring DaoAuthenticationProvider
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        // rules for all paths.
+        // can be changed to decorators in controllers
         http.cors().and().csrf().disable().exceptionHandling().authenticationEntryPoint(errorHandler)
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and().authorizeRequests().antMatchers("/users").authenticated()
-                .antMatchers("/admin").hasAuthority("ADMIN")
-                .anyRequest().permitAll();
+                .and().authorizeRequests().anyRequest().permitAll();
 
+        // h2-console fix
         http.csrf().disable();
         http.headers().frameOptions().disable();
     }

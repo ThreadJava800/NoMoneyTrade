@@ -11,6 +11,10 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
+/*
+    Interlayer between authentication object and User entity
+ */
 public class UserDetailsImpl implements UserDetails {
     private Long id;
     private String username;

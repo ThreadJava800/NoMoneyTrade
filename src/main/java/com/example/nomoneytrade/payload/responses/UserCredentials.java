@@ -2,6 +2,11 @@ package com.example.nomoneytrade.payload.responses;
 
 import java.util.List;
 
+
+/*
+    Clean user class (without db staff) for returning user
+    as response
+ */
 public class UserCredentials {
     private Long id;
     private String username;
