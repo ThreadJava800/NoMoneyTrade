@@ -15,7 +15,7 @@ public class UserDetailsImpl implements UserDetails {
     private Long id;
     private String username;
     private String email;
-    private Boolean isBanned;
+    private Boolean isEnabled;
     private Collection<? extends GrantedAuthority> roles;
 
     @JsonIgnore
@@ -38,22 +38,22 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return isBanned;
+        return isEnabled;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return isBanned;
+        return isEnabled;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return isBanned;
+        return isEnabled;
     }
 
     @Override
     public boolean isEnabled() {
-        return isBanned;
+        return isEnabled;
     }
 
     public Long getId() {
@@ -68,7 +68,7 @@ public class UserDetailsImpl implements UserDetails {
         this.id = id;
         this.username = username;
         this.email = email;
-        this.isBanned = isBanned;
+        this.isEnabled = isBanned;
         this.roles = roles;
         this.password = password;
     }

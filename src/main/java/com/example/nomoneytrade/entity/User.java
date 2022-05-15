@@ -33,16 +33,22 @@ public class User {
     @Size(min = Constants.MIN_PASSWORD_LENGTH)
     private String password;
 
-    @NotBlank
-    private Boolean isBanned;
+    private Boolean isEnabled;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles",
-            joinColumns = @JoinColumn(name = "users"),
-            inverseJoinColumns = @JoinColumn(name = "roles"))
+            joinColumns = @JoinColumn(name = "user"),
+            inverseJoinColumns = @JoinColumn(name = "role"))
     private Set<Role> roles = new HashSet<>();
 
     public User() {
+    }
+
+    public User(String username, String email, String password) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.isEnabled = true;
     }
 
     public Long getId() {
@@ -78,11 +84,11 @@ public class User {
     }
 
     public Boolean getBanned() {
-        return isBanned;
+        return isEnabled;
     }
 
     public void setBanned(Boolean banned) {
-        isBanned = banned;
+        isEnabled = banned;
     }
 
     public Set<Role> getRoles() {
@@ -91,12 +97,5 @@ public class User {
 
     public void setRoles(HashSet<Role> roles) {
         this.roles = roles;
-    }
-
-    public User(String username, String email, String password, RoleEnum role) {
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        this.isBanned = false;
     }
 }

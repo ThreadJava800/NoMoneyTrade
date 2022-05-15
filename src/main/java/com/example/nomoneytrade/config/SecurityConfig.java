@@ -15,10 +15,15 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import javax.sql.DataSource;
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    DataSource dataSource;
 
     @Autowired
     UserDetailsServiceImpl userDetailsService;
@@ -54,5 +59,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().authorizeRequests().antMatchers("/users").authenticated()
                 .antMatchers("/admin").hasAuthority("ADMIN")
                 .anyRequest().permitAll();
+
+        http.csrf().disable();
+        http.headers().frameOptions().disable();
     }
 }
