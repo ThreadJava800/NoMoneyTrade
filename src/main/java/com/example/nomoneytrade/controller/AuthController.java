@@ -12,6 +12,7 @@ import com.example.nomoneytrade.utils.JwtUtils;
 import com.example.nomoneytrade.utils.RoleEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -55,8 +56,12 @@ public class AuthController {
         String login = signInRequest.getLogin();
         String password = signInRequest.getPassword();
         if (isEmail(login)) {
-            User user = userRepository.findByEmail(login).orElseThrow(() -> new RuntimeException("User with this email does`t exist"));
-            authentication = authenticator.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), password));
+            try {
+                User user = userRepository.findByEmail(login).orElseThrow(() -> new RuntimeException("User with this email does`t exist"));
+                authentication = authenticator.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), password));
+            } catch (RuntimeException e) {
+                return new ResponseEntity<String>("Unauthorized", HttpStatus.UNAUTHORIZED);
+            }
         } else {
             authentication = authenticator.authenticate(new UsernamePasswordAuthenticationToken(login, password));
         }
@@ -67,7 +72,7 @@ public class AuthController {
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 
         if (!userDetails.isEnabled()) {
-            return ResponseEntity.badRequest().body("This user is banned");
+            return new ResponseEntity<String>("Forbidden", HttpStatus.FORBIDDEN);
         }
 
         String jwtCookie = jwtUtils.generateJwtCookie(userDetails).toString();
