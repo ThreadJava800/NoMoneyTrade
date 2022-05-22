@@ -13,15 +13,13 @@ public class UserCredentials {
     private String email;
     private Boolean isEnabled;
     private String password;
-    private List<String> roles;
 
-    public UserCredentials(Long id, String username, String email, Boolean isBanned, String password, List<String> roles) {
+    public UserCredentials(Long id, String username, String email, Boolean isBanned, String password) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.isEnabled = isBanned;
         this.password = password;
-        this.roles = roles;
     }
 
     public Long getId() {
@@ -42,9 +40,5 @@ public class UserCredentials {
 
     public String getPassword() {
         return password;
-    }
-
-    public List<String> getRoles() {
-        return roles;
     }
 }

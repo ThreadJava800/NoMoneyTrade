@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -85,8 +86,7 @@ public class AuthController {
                         userDetails.getUsername(),
                         userDetails.getEmail(),
                         userDetails.isEnabled(),
-                        userDetails.getEmail(),
-                        roles
+                        userDetails.getPassword()
                 ));
     }
 
@@ -122,8 +122,16 @@ public class AuthController {
         userRepository.save(user);
 
         String jwtCookie = jwtUtils.getCleanJwtCookie().toString();
-      
-        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie).body(new BaseResponse("User has been created."));
+
+
+
+        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie).body(new UserCredentials(
+                user.getId(),
+                user.getUsername(),
+                user.getEmail(),
+                user.getBanned(),
+                user.getPassword()
+        ));
     }
 
     public Boolean isEmail(String email) {
