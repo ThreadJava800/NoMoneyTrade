@@ -4,6 +4,7 @@ import com.example.nomoneytrade.entity.Role;
 import com.example.nomoneytrade.entity.User;
 import com.example.nomoneytrade.payload.requests.SignInRequest;
 import com.example.nomoneytrade.payload.requests.SignUpRequest;
+import com.example.nomoneytrade.payload.responses.BaseResponse;
 import com.example.nomoneytrade.payload.responses.UserCredentials;
 import com.example.nomoneytrade.repository.RoleRepository;
 import com.example.nomoneytrade.repository.UserRepository;
@@ -93,7 +94,7 @@ public class AuthController {
     public ResponseEntity<?> logoutUser() {
         // base cookies. cleaning them after signing out
         String jwtCookie = jwtUtils.getCleanJwtCookie().toString();
-        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie).body("You've been signed out.");
+        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie).body(new BaseResponse("You've been signed out."));
     }
 
     @PostMapping("/signup")
@@ -122,7 +123,7 @@ public class AuthController {
 
         String jwtCookie = jwtUtils.getCleanJwtCookie().toString();
       
-        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie).body("User has been created.");
+        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie).body(new BaseResponse("User has been created."));
     }
 
     public Boolean isEmail(String email) {
