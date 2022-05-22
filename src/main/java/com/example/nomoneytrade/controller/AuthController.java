@@ -120,7 +120,9 @@ public class AuthController {
 
         userRepository.save(user);
 
-        return ResponseEntity.ok("User has been created.");
+        String jwtCookie = jwtUtils.getCleanJwtCookie().toString();
+      
+        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie).body("User has been created.");
     }
 
     public Boolean isEmail(String email) {
