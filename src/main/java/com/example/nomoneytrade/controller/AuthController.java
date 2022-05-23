@@ -2,6 +2,7 @@ package com.example.nomoneytrade.controller;
 
 import com.example.nomoneytrade.entity.Role;
 import com.example.nomoneytrade.entity.User;
+import com.example.nomoneytrade.imageStorage.StorageService;
 import com.example.nomoneytrade.payload.requests.SignInRequest;
 import com.example.nomoneytrade.payload.requests.SignUpRequest;
 import com.example.nomoneytrade.payload.responses.BaseResponse;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.HashSet;
@@ -50,6 +52,13 @@ public class AuthController {
 
     @Autowired
     JwtUtils jwtUtils;
+
+    private final StorageService storageService;
+
+    @Autowired
+    public AuthController(StorageService storageService) {
+        this.storageService = storageService;
+    }
 
     @PostMapping("/signin")
     public ResponseEntity<?> signInUser(@RequestBody @Valid SignInRequest signInRequest) {
@@ -102,6 +111,7 @@ public class AuthController {
         String email = signUpRequest.getEmail();
         String username = signUpRequest.getUsername();
         String password = signUpRequest.getPassword();
+        MultipartFile multipartFile = signUpRequest.getFile();
 
         if (userRepository.existsByEmail(email)) {
             return ResponseEntity.badRequest().body("This email is occupied.");
@@ -111,7 +121,11 @@ public class AuthController {
             return ResponseEntity.badRequest().body("This username is taken.");
         }
 
-        User user = new User(username, email, passwordEncoder.encode(password));
+        User user = new User(username, email, passwordEncoder.encode(password), "");
+
+        String fileName = "avatar_" + user.getId().toString();
+        storageService.store(multipartFile, fileName);
+        user.setImagePath(fileName);
 
         // giving base ROLE_USER to new user
         HashSet<Role> roles = new HashSet<>();

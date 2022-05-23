@@ -1,5 +1,7 @@
 package com.example.nomoneytrade.payload.requests;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
@@ -7,11 +9,11 @@ public class SignUpRequest {
     @NotBlank
     private String username;
 
+    private MultipartFile file;
+
     @NotBlank
     @Email
     private String email;
-
-    private String imagePath = "";
 
     @NotBlank
     private String password;
@@ -40,11 +42,11 @@ public class SignUpRequest {
         this.password = password;
     }
 
-    public String getImagePath() {
-        return imagePath;
+    public MultipartFile getFile() {
+        return file;
     }
 
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
+    public void setFile(MultipartFile file) {
+        this.file = file;
     }
 }
