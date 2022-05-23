@@ -11,6 +11,8 @@ public class SignUpRequest {
     @Email
     private String email;
 
+    private String imagePath = "";
+
     @NotBlank
     private String password;
 
@@ -36,5 +38,13 @@ public class SignUpRequest {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 }

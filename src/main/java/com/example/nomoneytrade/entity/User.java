@@ -33,6 +33,8 @@ public class User {
     @Size(min = Constants.MIN_PASSWORD_LENGTH)
     private String password;
 
+    private String imagePath;
+
     private Boolean isEnabled;
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -49,6 +51,7 @@ public class User {
         this.email = email;
         this.password = password;
         this.isEnabled = true;
+        this.imagePath = "";
     }
 
     public Long getId() {
@@ -97,5 +100,13 @@ public class User {
 
     public void setRoles(HashSet<Role> roles) {
         this.roles = roles;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 }

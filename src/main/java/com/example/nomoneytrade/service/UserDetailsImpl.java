@@ -20,6 +20,7 @@ public class UserDetailsImpl implements UserDetails {
     private String username;
     private String email;
     private Boolean isEnabled;
+    private String imagePath;
     private Collection<? extends GrantedAuthority> roles;
 
     @JsonIgnore
@@ -58,6 +59,10 @@ public class UserDetailsImpl implements UserDetails {
     @Override
     public boolean isEnabled() {
         return isEnabled;
+    }
+
+    public String getImagePath() {
+        return imagePath;
     }
 
     public Long getId() {
