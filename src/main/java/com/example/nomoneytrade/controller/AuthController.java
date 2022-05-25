@@ -34,6 +34,8 @@ import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import static com.example.nomoneytrade.utils.Constants.IMAGE_HOST_URI;
+
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
@@ -123,9 +125,9 @@ public class AuthController {
 
         User user = new User(username, email, passwordEncoder.encode(password), "");
 
-        String fileName = "avatar_" + user.getId().toString();
-        storageService.store(multipartFile, fileName);
-        user.setImagePath(fileName);
+        String imagePath = IMAGE_HOST_URI + "avatar_" + user.getId().toString();
+        storageService.store(multipartFile, imagePath);
+        user.setImagePath(imagePath);
 
         // giving base ROLE_USER to new user
         HashSet<Role> roles = new HashSet<>();
