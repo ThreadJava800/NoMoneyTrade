@@ -22,10 +22,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
@@ -109,11 +106,10 @@ public class AuthController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<?> signUpUser(@RequestBody @Valid SignUpRequest signUpRequest) {
+    public ResponseEntity<?> signUpUser(@RequestParam("user_data") @Valid SignUpRequest signUpRequest, @RequestParam MultipartFile file) {
         String email = signUpRequest.getEmail();
         String username = signUpRequest.getUsername();
         String password = signUpRequest.getPassword();
-        MultipartFile multipartFile = signUpRequest.getFile();
 
         if (userRepository.existsByEmail(email)) {
             return ResponseEntity.badRequest().body("This email is occupied.");
@@ -123,10 +119,12 @@ public class AuthController {
             return ResponseEntity.badRequest().body("This username is taken.");
         }
 
+
+
         User user = new User(username, email, passwordEncoder.encode(password), "");
 
         String imagePath = IMAGE_HOST_URI + "avatar_" + user.getId().toString();
-        storageService.store(multipartFile, imagePath);
+        storageService.store(file, "avatar_" + user.getId().toString());
         user.setImagePath(imagePath);
 
         // giving base ROLE_USER to new user

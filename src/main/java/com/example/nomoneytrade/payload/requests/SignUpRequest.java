@@ -9,8 +9,6 @@ public class SignUpRequest {
     @NotBlank
     private String username;
 
-    private MultipartFile file;
-
     @NotBlank
     @Email
     private String email;
@@ -40,13 +38,5 @@ public class SignUpRequest {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public MultipartFile getFile() {
-        return file;
-    }
-
-    public void setFile(MultipartFile file) {
-        this.file = file;
     }
 }
