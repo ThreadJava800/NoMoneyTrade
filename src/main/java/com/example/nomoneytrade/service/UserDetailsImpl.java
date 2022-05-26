@@ -73,19 +73,20 @@ public class UserDetailsImpl implements UserDetails {
         return email;
     }
 
-    public UserDetailsImpl(Long id, String username, String email, Boolean isBanned, Collection<? extends GrantedAuthority> roles, String password) {
+    public UserDetailsImpl(Long id, String username, String email, Boolean isBanned, Collection<? extends GrantedAuthority> roles, String password, String imagePath) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.isEnabled = isBanned;
         this.roles = roles;
         this.password = password;
+        this.imagePath = imagePath;
     }
 
     static UserDetailsImpl builder(User user) {
         List<GrantedAuthority> roles = user.getRoles().stream()
                 .map(role -> new SimpleGrantedAuthority(role.getName().name()))
                 .collect(Collectors.toList());
-        return new UserDetailsImpl(user.getId(), user.getUsername(), user.getEmail(), user.getBanned(), roles, user.getPassword());
+        return new UserDetailsImpl(user.getId(), user.getUsername(), user.getEmail(), user.getBanned(), roles, user.getPassword(), user.getImagePath());
     }
 }
