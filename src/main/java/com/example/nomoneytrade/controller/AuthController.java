@@ -85,8 +85,6 @@ public class AuthController {
         }
 
         String jwtCookie = jwtUtils.generateJwtCookie(userDetails).toString();
-        // getting authorities (roles)
-        List<String> roles = userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
         return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie)
                 .body(new UserCredentials(
                         userDetails.getId(),
@@ -106,7 +104,7 @@ public class AuthController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<?> signUpUser(@RequestParam("user_data") @Valid SignUpRequest signUpRequest, @RequestParam MultipartFile file) {
+    public ResponseEntity<?> signUpUser(@RequestParam("user_data") @Valid SignUpRequest signUpRequest, @RequestParam(required = false) MultipartFile file) {
         String email = signUpRequest.getEmail();
         String username = signUpRequest.getUsername();
         String password = signUpRequest.getPassword();
@@ -119,13 +117,17 @@ public class AuthController {
             return ResponseEntity.badRequest().body("This username is taken.");
         }
 
-
-
         User user = new User(username, email, passwordEncoder.encode(password), "");
 
-        String imagePath = IMAGE_HOST_URI + "avatar_" + user.getId().toString();
-        storageService.store(file, "avatar_" + user.getId().toString());
-        user.setImagePath(imagePath);
+
+        if (file != null) {
+            String imagePath = IMAGE_HOST_URI + "avatar_" + user.getId().toString() + ".png";
+            storageService.store(file, "avatar_" + user.getId().toString() + ".png");
+            user.setImagePath(imagePath);
+        }
+        else {
+            user.setImagePath("");
+        }
 
         // giving base ROLE_USER to new user
         HashSet<Role> roles = new HashSet<>();
@@ -136,7 +138,6 @@ public class AuthController {
         userRepository.save(user);
 
         String jwtCookie = jwtUtils.getCleanJwtCookie().toString();
-
 
         return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie).body(new UserCredentials(
                 user.getId(),
