@@ -108,6 +108,7 @@ public class AuthController {
         String email = signUpRequest.getEmail();
         String username = signUpRequest.getUsername();
         String password = signUpRequest.getPassword();
+        String imagePath = "";
 
         if (userRepository.existsByEmail(email)) {
             return ResponseEntity.badRequest().body("This email is occupied.");
@@ -117,17 +118,15 @@ public class AuthController {
             return ResponseEntity.badRequest().body("This username is taken.");
         }
 
-        User user = new User(username, email, passwordEncoder.encode(password));
-
-
         if (file != null) {
-            String imagePath = IMAGE_HOST_URI + "avatar_" + username + ".png";
+            imagePath = IMAGE_HOST_URI + "avatar_" + username + ".png";
             storageService.store(file, "avatar_" + username + ".png");
-            user.setImagePath(imagePath);
         }
         else {
-            user.setImagePath("");
+            imagePath = "";
         }
+
+        User user = new User(username, email, passwordEncoder.encode(password), imagePath);
 
         // giving base ROLE_USER to new user
         HashSet<Role> roles = new HashSet<>();

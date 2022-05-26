@@ -33,6 +33,7 @@ public class User {
     @Size(min = Constants.MIN_PASSWORD_LENGTH)
     private String password;
 
+    @NotBlank
     private String imagePath;
 
     private Boolean isEnabled;
@@ -46,11 +47,12 @@ public class User {
     public User() {
     }
 
-    public User(String username, String email, String password) {
+    public User(String username, String email, String password, String imagePath) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.isEnabled = true;
+        this.imagePath = imagePath;
     }
 
     public Long getId() {
