@@ -33,7 +33,6 @@ public class User {
     @Size(min = Constants.MIN_PASSWORD_LENGTH)
     private String password;
 
-    @NotBlank
     private String imagePath;
 
     private Boolean isEnabled;
