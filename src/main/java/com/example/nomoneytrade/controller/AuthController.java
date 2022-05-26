@@ -104,7 +104,7 @@ public class AuthController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<?> signUpUser(@RequestParam("user_data") @Valid SignUpRequest signUpRequest, @RequestParam(required = false) MultipartFile file) {
+    public ResponseEntity<?> signUpUser(@RequestParam("user_data") SignUpRequest signUpRequest, @RequestParam(required = false) MultipartFile file) {
         String email = signUpRequest.getEmail();
         String username = signUpRequest.getUsername();
         String password = signUpRequest.getPassword();
@@ -121,8 +121,8 @@ public class AuthController {
 
 
         if (file != null) {
-            String imagePath = IMAGE_HOST_URI + "avatar_" + user.getId().toString() + ".png";
-            storageService.store(file, "avatar_" + user.getId().toString() + ".png");
+            String imagePath = IMAGE_HOST_URI + "avatar_" + username + ".png";
+            storageService.store(file, "avatar_" + username + ".png");
             user.setImagePath(imagePath);
         }
         else {
