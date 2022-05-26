@@ -46,12 +46,11 @@ public class User {
     public User() {
     }
 
-    public User(String username, String email, String password, String imagePath) {
+    public User(String username, String email, String password) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.isEnabled = true;
-        this.imagePath = imagePath;
     }
 
     public Long getId() {

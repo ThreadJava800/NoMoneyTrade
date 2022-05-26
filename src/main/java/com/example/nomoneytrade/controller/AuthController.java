@@ -104,7 +104,7 @@ public class AuthController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<?> signUpUser(@RequestParam("user_data") SignUpRequest signUpRequest, @RequestParam(required = false) MultipartFile file) {
+    public ResponseEntity<?> signUpUser(@RequestPart("user_data") SignUpRequest signUpRequest, @RequestParam(required = false) MultipartFile file) {
         String email = signUpRequest.getEmail();
         String username = signUpRequest.getUsername();
         String password = signUpRequest.getPassword();
@@ -117,7 +117,7 @@ public class AuthController {
             return ResponseEntity.badRequest().body("This username is taken.");
         }
 
-        User user = new User(username, email, passwordEncoder.encode(password), "");
+        User user = new User(username, email, passwordEncoder.encode(password));
 
 
         if (file != null) {
