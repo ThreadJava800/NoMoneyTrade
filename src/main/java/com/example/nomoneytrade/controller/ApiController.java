@@ -64,4 +64,14 @@ public class ApiController {
         String jwtCookie = jwtUtils.getCleanJwtCookie().toString();
         return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie).body(new AllPostResponse(posts));
     }
+
+    @PostMapping("/get_my_posts")
+    public ResponseEntity<?> getMyPosts() {
+//        List<Post> posts = postRepository.
+//
+//        String jwtCookie = jwtUtils.getCleanJwtCookie().toString();
+//        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie).body(new AllPostResponse(posts));
+    }
+
+    //TODO get MY posts
 }
