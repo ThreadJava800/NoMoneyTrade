@@ -147,7 +147,7 @@ public class AuthController {
     }
 
     @GetMapping("/get_user_by_id")
-    public ResponseEntity<User> getMyOffers(@RequestBody @Valid Long user_id) {
+    public ResponseEntity<User> getUserById(@RequestBody @Valid Long user_id) {
         User user = userRepository.findById(user_id).orElseThrow(() -> new RuntimeException("User with this id does`t exist"));
 
         return ResponseEntity.ok(user);
