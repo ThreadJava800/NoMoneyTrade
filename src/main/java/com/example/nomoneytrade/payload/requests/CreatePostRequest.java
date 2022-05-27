@@ -8,6 +8,8 @@ public class CreatePostRequest {
     private String description;
     private List<String> tags;
     private List<String> tagsExchange;
+    private String city;
+    private String time;
 
     public void setTagsExchange(List<String> tagsExchange) {
         this.tagsExchange = tagsExchange;
@@ -27,6 +29,22 @@ public class CreatePostRequest {
 
     public Long getUser_id() {
         return user_id;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public void setUser_id(Long user_id) {
