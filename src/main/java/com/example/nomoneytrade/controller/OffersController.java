@@ -8,6 +8,7 @@ import com.example.nomoneytrade.payload.responses.AllPostResponse;
 import com.example.nomoneytrade.payload.responses.BaseResponse;
 import com.example.nomoneytrade.payload.responses.UserCredentials;
 import com.example.nomoneytrade.repository.OffersRepository;
+import com.example.nomoneytrade.utils.ConditionEnum;
 import com.example.nomoneytrade.utils.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -51,8 +52,9 @@ public class OffersController {
         String city = makeOfferRequest.getCity();
         String time = makeOfferRequest.getTime();
         Long userId = makeOfferRequest.getUserId();
+        ConditionEnum state = makeOfferRequest.getState();
 
-        Offer offer = new Offer(postId, city, time, userId);
+        Offer offer = new Offer(postId, city, time, userId, state);
 
         offersRepository.save(offer);
 

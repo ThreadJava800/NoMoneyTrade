@@ -1,5 +1,7 @@
 package com.example.nomoneytrade.entity;
 
+import com.example.nomoneytrade.utils.ConditionEnum;
+
 import javax.persistence.*;
 
 @Entity
@@ -13,18 +15,18 @@ public class Offer {
     private String city;
     private String time;
     private Long userId;
+    private ConditionEnum state;
 
     public Offer() {
 
     }
 
-    //TODO одобрен или нет
-
-    public Offer(Long postId, String city, String time, Long userId) {
+    public Offer(Long postId, String city, String time, Long userId, ConditionEnum state) {
         this.postId = postId;
         this.city = city;
         this.time = time;
         this.userId = userId;
+        this.state = state;
     }
 
     public Long getOfferId() {
@@ -65,5 +67,13 @@ public class Offer {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    public ConditionEnum getState() {
+        return state;
+    }
+
+    public void setState(ConditionEnum state) {
+        this.state = state;
     }
 }
