@@ -26,14 +26,6 @@ public class PostTag {
         this.tag = tag;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     public String getTag() {
         return tag;
     }

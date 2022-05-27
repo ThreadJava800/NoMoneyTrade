@@ -20,14 +20,6 @@ public class PostTagsExchange {
         this.tag_exchange = tag_exchange;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     public String getTag_exchange() {
         return tag_exchange;
     }
