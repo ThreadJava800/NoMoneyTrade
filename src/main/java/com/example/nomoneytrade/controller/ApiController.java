@@ -35,7 +35,7 @@ public class ApiController {
     @PostMapping("/new_post")
     public ResponseEntity<?> createPost(@RequestBody @Valid CreatePostRequest createPostRequest) {
         String title = createPostRequest.getTitle();
-        CategoryEnum category = CategoryEnum.valueOf(createPostRequest.getCategory());
+        //CategoryEnum category = CategoryEnum.valueOf(createPostRequest.getCategory());
         Long user_id = createPostRequest.getUser_id();
         String description = createPostRequest.getDescription();
         List<String> tags = createPostRequest.getTags();
@@ -46,7 +46,7 @@ public class ApiController {
             tagsEntities.add(postTag);
         }
 
-        Post post = new Post(title, category, user_id, description, tagsEntities);
+        Post post = new Post(title, user_id, description, tagsEntities);
 
         postRepository.save(post);
 

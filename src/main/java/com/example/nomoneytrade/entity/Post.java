@@ -18,7 +18,7 @@ public class Post {
     @NotBlank
     private String title;
 
-    private CategoryEnum category;
+ //   private CategoryEnum category;
 
     private Long user_id;
 
@@ -35,9 +35,9 @@ public class Post {
 
     }
 
-    public Post(String title, CategoryEnum category, Long user_id, String description, Set<PostTag> tags) {
+    public Post(String title, Long user_id, String description, Set<PostTag> tags) { // CategoryEnum category,
         this.title = title;
-        this.category = category;
+    //    this.category = category;
         this.user_id = user_id;
         this.description = description;
         this.tags = tags;
@@ -59,13 +59,13 @@ public class Post {
         this.title = title;
     }
 
-    public CategoryEnum getCategory() {
-        return category;
-    }
+//    public CategoryEnum getCategory() {
+//        return category;
+//    }
 
-    public void setCategory(CategoryEnum category) {
-        this.category = category;
-    }
+//    public void setCategory(CategoryEnum category) {
+//        this.category = category;
+//    }
 
     public Long getUser_id() {
         return user_id;
