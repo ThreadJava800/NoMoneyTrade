@@ -18,6 +18,8 @@ public class Offer {
 
     }
 
+    //TODO одобрен или нет
+
     public Offer(Long postId, String city, String time, Long userId) {
         this.postId = postId;
         this.city = city;

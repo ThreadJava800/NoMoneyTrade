@@ -7,6 +7,15 @@ public class CreatePostRequest {
     private Long user_id;
     private String description;
     private List<String> tags;
+    private List<String> tagsExchange;
+
+    public void setTagsExchange(List<String> tagsExchange) {
+        this.tagsExchange = tagsExchange;
+    }
+
+    public List<String> getTagsExchange() {
+        return tagsExchange;
+    }
 
     public String getTitle() {
         return title;

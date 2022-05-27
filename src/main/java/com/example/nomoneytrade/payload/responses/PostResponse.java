@@ -9,4 +9,5 @@ public class PostResponse {
     private Boolean isEnabled;
     private String password;
     private List<String> tags;
+    private List<String> tagsExchange;
 }

@@ -23,7 +23,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
 import javax.validation.Valid;
 import java.util.HashSet;
 import java.util.regex.Pattern;
@@ -89,7 +88,10 @@ public class AuthController {
                         userDetails.getEmail(),
                         userDetails.isEnabled(),
                         userDetails.getPassword(),
-                        userDetails.getImagePath()
+                        userDetails.getImagePath(),
+                        userDetails.getCity(),
+                        userDetails.getAddress(),
+                        userDetails.getPhoneNumber()
                 ));
     }
 
@@ -143,7 +145,10 @@ public class AuthController {
                 user.getEmail(),
                 user.getBanned(),
                 user.getPassword(),
-                user.getImagePath()
+                user.getImagePath(),
+                user.getCity(),
+                user.getAddress(),
+                user.getPhoneNumber()
         ));
     }
 
@@ -151,7 +156,7 @@ public class AuthController {
     public ResponseEntity<User> getUserById(@RequestBody @Valid Long user_id) {
         User user = userRepository.findById(user_id).orElseThrow(() -> new RuntimeException("User with this id does`t exist"));
 
-        return ResponseEntity.ok(user);
+        return ResponseEntity.ok(user); //TODO rix return
     }
 
     public Boolean isEmail(String email) {

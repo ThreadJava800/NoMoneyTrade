@@ -27,16 +27,23 @@ public class Post {
             inverseJoinColumns = @JoinColumn(name = "postTag"))
     private Set<PostTag> tags = new HashSet<>();
 
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @JoinTable(name = "post_post_tags_exchange",
+            joinColumns = @JoinColumn(name = "post"),
+            inverseJoinColumns = @JoinColumn(name = "postTag_exchange"))
+    private Set<PostTag> tags_exchange = new HashSet<>();
+
     public Post() {
 
     }
 
-    public Post(String title, Long user_id, String description, Set<PostTag> tags) {
+    public Post(String title, Long user_id, String description, Set<PostTag> tags, Set<PostTag> tags_exchange) {
         this.title = title;
     //    this.category = category;
         this.user_id = user_id;
         this.description = description;
         this.tags = tags;
+        this.tags_exchange = tags_exchange;
     }
 
     public Long getId() {
@@ -77,5 +84,13 @@ public class Post {
 
     public void setTags(Set<PostTag> tags) {
         this.tags = tags;
+    }
+
+    public Set<PostTag> getTags_exchange() {
+        return tags_exchange;
+    }
+
+    public void setTags_exchange(Set<PostTag> tags_exchange) {
+        this.tags_exchange = tags_exchange;
     }
 }
