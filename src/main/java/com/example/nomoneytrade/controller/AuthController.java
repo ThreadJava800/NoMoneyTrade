@@ -23,6 +23,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
 import javax.validation.Valid;
 import java.util.HashSet;
 import java.util.regex.Pattern;
@@ -106,7 +107,7 @@ public class AuthController {
         String password = signUpRequest.getPassword();
         String imagePath = "";
         String city = signUpRequest.getCity();
-        String addresss = signUpRequest.getAddress();
+        String address = signUpRequest.getAddress();
         String phoneNumber = signUpRequest.getPhoneNumber();
 
         if (userRepository.existsByEmail(email)) {
@@ -124,7 +125,7 @@ public class AuthController {
             imagePath = "";
         }
 
-        User user = new User(username, email, passwordEncoder.encode(password), imagePath, city, addresss, phoneNumber);
+        User user = new User(username, email, passwordEncoder.encode(password), imagePath, city, address, phoneNumber);
 
         // giving base ROLE_USER to new user
         HashSet<Role> roles = new HashSet<>();

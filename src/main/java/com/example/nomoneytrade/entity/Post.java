@@ -1,7 +1,5 @@
 package com.example.nomoneytrade.entity;
 
-import com.example.nomoneytrade.utils.CategoryEnum;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.HashSet;
@@ -18,8 +16,6 @@ public class Post {
     @NotBlank
     private String title;
 
- //   private CategoryEnum category;
-
     private Long user_id;
 
     @NotBlank
@@ -35,7 +31,7 @@ public class Post {
 
     }
 
-    public Post(String title, Long user_id, String description, Set<PostTag> tags) { // CategoryEnum category,
+    public Post(String title, Long user_id, String description, Set<PostTag> tags) {
         this.title = title;
     //    this.category = category;
         this.user_id = user_id;
@@ -58,14 +54,6 @@ public class Post {
     public void setTitle(String title) {
         this.title = title;
     }
-
-//    public CategoryEnum getCategory() {
-//        return category;
-//    }
-
-//    public void setCategory(CategoryEnum category) {
-//        this.category = category;
-//    }
 
     public Long getUser_id() {
         return user_id;

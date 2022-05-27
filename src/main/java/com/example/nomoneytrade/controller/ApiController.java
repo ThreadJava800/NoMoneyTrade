@@ -4,9 +4,13 @@ package com.example.nomoneytrade.controller;
 import com.example.nomoneytrade.entity.Post;
 import com.example.nomoneytrade.entity.PostTag;
 import com.example.nomoneytrade.payload.requests.CreatePostRequest;
+import com.example.nomoneytrade.payload.responses.AllPostResponse;
+import com.example.nomoneytrade.payload.responses.BaseResponse;
+import com.example.nomoneytrade.payload.responses.UserCredentials;
 import com.example.nomoneytrade.repository.PostRepository;
 import com.example.nomoneytrade.utils.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,7 +34,6 @@ public class ApiController {
     @PostMapping("/new_post")
     public ResponseEntity<?> createPost(@RequestBody @Valid CreatePostRequest createPostRequest) {
         String title = createPostRequest.getTitle();
-        //CategoryEnum category = CategoryEnum.valueOf(createPostRequest.getCategory());
         Long user_id = createPostRequest.getUser_id();
         String description = createPostRequest.getDescription();
         List<String> tags = createPostRequest.getTags();
@@ -45,12 +48,15 @@ public class ApiController {
 
         postRepository.save(post);
 
-        return ResponseEntity.ok("Post has been created.");
+        String jwtCookie = jwtUtils.getCleanJwtCookie().toString();
+        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie).body(new BaseResponse("Offer created successfully."));
     }
 
     @PostMapping("/get_posts")
     public ResponseEntity<?> getPosts() {
+        List<Post> posts = postRepository.findAll();
 
-        return ResponseEntity.ok("Post has been created.");
+        String jwtCookie = jwtUtils.getCleanJwtCookie().toString();
+        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie).body(new AllPostResponse(posts));
     }
 }

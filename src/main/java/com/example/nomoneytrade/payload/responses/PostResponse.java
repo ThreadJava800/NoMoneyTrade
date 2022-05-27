@@ -8,5 +8,5 @@ public class PostResponse {
     private String email;
     private Boolean isEnabled;
     private String password;
-    private List<String> roles;
+    private List<String> tags;
 }

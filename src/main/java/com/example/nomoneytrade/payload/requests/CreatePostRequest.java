@@ -1,12 +1,9 @@
 package com.example.nomoneytrade.payload.requests;
 
-import com.example.nomoneytrade.utils.CategoryEnum;
-
 import java.util.List;
 
 public class CreatePostRequest {
     private String title;
-    private String category;
     private Long user_id;
     private String description;
     private List<String> tags;
@@ -17,14 +14,6 @@ public class CreatePostRequest {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
     }
 
     public Long getUser_id() {
