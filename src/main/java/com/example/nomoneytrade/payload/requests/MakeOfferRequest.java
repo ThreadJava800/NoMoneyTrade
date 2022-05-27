@@ -6,7 +6,8 @@ public class MakeOfferRequest {
     private Long postId;
     private String city;
     private String time;
-    private Long userId;
+    private Long buyerId;
+    private Long customerId;
     private ConditionEnum state;
 
     public String getCity() {
@@ -17,8 +18,12 @@ public class MakeOfferRequest {
         return postId;
     }
 
-    public Long getUserId() {
-        return userId;
+    public Long getBuyerId() {
+        return buyerId;
+    }
+
+    public Long getCustomerId() {
+        return customerId;
     }
 
     public String getTime() {

@@ -14,18 +14,20 @@ public class Offer {
     private Long postId;
     private String city;
     private String time;
-    private Long userId;
+    private Long buyerId;
+    private Long customerId;
     private ConditionEnum state;
 
     public Offer() {
 
     }
 
-    public Offer(Long postId, String city, String time, Long userId, ConditionEnum state) {
+    public Offer(Long postId, String city, String time, Long buyerId, Long customerId, ConditionEnum state) {
         this.postId = postId;
         this.city = city;
         this.time = time;
-        this.userId = userId;
+        this.buyerId = buyerId;
+        this.customerId = customerId;
         this.state = state;
     }
 
@@ -61,12 +63,20 @@ public class Offer {
         this.time = time;
     }
 
-    public Long getUserId() {
-        return userId;
+    public Long getBuyerId() {
+        return buyerId;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setBuyerId(Long buyerId) {
+        this.buyerId = buyerId;
+    }
+
+    public Long getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(Long customerId) {
+        this.customerId = customerId;
     }
 
     public ConditionEnum getState() {
