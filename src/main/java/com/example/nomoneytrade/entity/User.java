@@ -37,6 +37,10 @@ public class User {
 
     private Boolean isEnabled;
 
+    private String city;
+    private String address;
+    private String phoneNumber;
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user"),
@@ -46,12 +50,27 @@ public class User {
     public User() {
     }
 
-    public User(String username, String email, String password, String imagePath) {
+    public User(String username, String email, String password, String imagePath, String city, String address, String phoneNumber) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.isEnabled = true;
         this.imagePath = imagePath;
+        this.city = city;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getAddress() {
+        return address;
     }
 
     public Long getId() {
