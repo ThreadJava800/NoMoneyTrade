@@ -35,17 +35,40 @@ public class Post {
             inverseJoinColumns = @JoinColumn(name = "postTagExchange"))
     private Set<PostTagsExchange> tags_exchange = new HashSet<>();
 
+    private String city;
+
+    private String time;
+
     public Post() {
 
     }
 
-    public Post(String title, Long userId, String description, Set<PostTag> tags, Set<PostTagsExchange> tags_exchange, String imagePath) {
+    public Post(String title, Long userId, String description, Set<PostTag> tags, Set<PostTagsExchange> tags_exchange,
+                String imagePath, String city, String time) {
         this.title = title;
         this.userId = userId;
         this.description = description;
         this.tags = tags;
         this.tags_exchange = tags_exchange;
         this.imagePath = imagePath;
+        this.city = city;
+        this.time = time;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public Long getId() {

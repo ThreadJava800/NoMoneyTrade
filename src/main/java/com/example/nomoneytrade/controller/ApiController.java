@@ -46,6 +46,8 @@ public class ApiController {
         List<String> tags = createPostRequest.getTags();
         List<String> tagsExchanges = createPostRequest.getTagsExchange();
         String imagePath;
+        String city = createPostRequest.getCity();
+        String time =createPostRequest.getTime();
 
         HashSet<PostTag> tagsEntities = new HashSet<>();
         for (String tag : tags) {
@@ -67,7 +69,7 @@ public class ApiController {
             imagePath = "";
         }
 
-        Post post = new Post(title, user_id, description, tagsEntities, tagsExchangeEntities, imagePath);
+        Post post = new Post(title, user_id, description, tagsEntities, tagsExchangeEntities, imagePath, city, time);
 
         postRepository.save(post);
 
