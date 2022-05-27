@@ -16,7 +16,9 @@ public class Post {
     @NotBlank
     private String title;
 
-    private Long user_id;
+    private String imagePath;
+
+    private Long userId;
 
     @NotBlank
     private String description;
@@ -28,22 +30,22 @@ public class Post {
     private Set<PostTag> tags = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
-    @JoinTable(name = "post_post_tags_exchange",
+    @JoinTable(name = "post_post_tags_exchanges",
             joinColumns = @JoinColumn(name = "post"),
-            inverseJoinColumns = @JoinColumn(name = "postTag_exchange"))
-    private Set<PostTag> tags_exchange = new HashSet<>();
+            inverseJoinColumns = @JoinColumn(name = "postTagExchange"))
+    private Set<PostTagsExchange> tags_exchange = new HashSet<>();
 
     public Post() {
 
     }
 
-    public Post(String title, Long user_id, String description, Set<PostTag> tags, Set<PostTag> tags_exchange) {
+    public Post(String title, Long userId, String description, Set<PostTag> tags, Set<PostTagsExchange> tags_exchange, String imagePath) {
         this.title = title;
-    //    this.category = category;
-        this.user_id = user_id;
+        this.userId = userId;
         this.description = description;
         this.tags = tags;
         this.tags_exchange = tags_exchange;
+        this.imagePath = imagePath;
     }
 
     public Long getId() {
@@ -63,11 +65,11 @@ public class Post {
     }
 
     public Long getUser_id() {
-        return user_id;
+        return userId;
     }
 
     public void setUser_id(Long user_id) {
-        this.user_id = user_id;
+        this.userId = user_id;
     }
 
     public String getDescription() {
@@ -86,11 +88,27 @@ public class Post {
         this.tags = tags;
     }
 
-    public Set<PostTag> getTags_exchange() {
+    public Set<PostTagsExchange> getTags_exchange() {
         return tags_exchange;
     }
 
-    public void setTags_exchange(Set<PostTag> tags_exchange) {
+    public void setTags_exchange(Set<PostTagsExchange> tags_exchange) {
         this.tags_exchange = tags_exchange;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }
