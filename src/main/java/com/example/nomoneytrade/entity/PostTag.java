@@ -1,6 +1,12 @@
 package com.example.nomoneytrade.entity;
 
-import javax.persistence.*;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Column;
 
 @Entity
 @Table(name = "post_tags")
@@ -14,7 +20,6 @@ public class PostTag {
     private String tag;
 
     public PostTag() {
-
     }
 
     public PostTag(String tag) {

@@ -19,17 +19,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
 import javax.validation.Valid;
 import java.util.HashSet;
-import java.util.List;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 import static com.example.nomoneytrade.utils.Constants.IMAGE_HOST_URI;
 
@@ -148,6 +144,13 @@ public class AuthController {
                 user.getPassword(),
                 user.getImagePath()
         ));
+    }
+
+    @GetMapping("/get_user_by_id")
+    public ResponseEntity<User> getMyOffers(@RequestBody @Valid Long user_id) {
+        User user = userRepository.findById(user_id).orElseThrow(() -> new RuntimeException("User with this id does`t exist"));
+
+        return ResponseEntity.ok(user);
     }
 
     public Boolean isEmail(String email) {

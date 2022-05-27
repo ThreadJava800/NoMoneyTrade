@@ -8,7 +8,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 
-
 @SpringBootApplication
 @EnableConfigurationProperties(StoragePreferences.class)
 public class Application {

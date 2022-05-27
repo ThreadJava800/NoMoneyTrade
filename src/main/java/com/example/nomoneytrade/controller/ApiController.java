@@ -3,14 +3,9 @@ package com.example.nomoneytrade.controller;
 
 import com.example.nomoneytrade.entity.Post;
 import com.example.nomoneytrade.entity.PostTag;
-import com.example.nomoneytrade.entity.Role;
-import com.example.nomoneytrade.entity.User;
 import com.example.nomoneytrade.payload.requests.CreatePostRequest;
 import com.example.nomoneytrade.repository.PostRepository;
-import com.example.nomoneytrade.repository.UserRepository;
-import com.example.nomoneytrade.utils.CategoryEnum;
 import com.example.nomoneytrade.utils.JwtUtils;
-import com.example.nomoneytrade.utils.RoleEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,7 +36,7 @@ public class ApiController {
         List<String> tags = createPostRequest.getTags();
 
         HashSet<PostTag> tagsEntities = new HashSet<>();
-        for(String tag : tags) {
+        for (String tag : tags) {
             PostTag postTag = new PostTag(tag);
             tagsEntities.add(postTag);
         }
