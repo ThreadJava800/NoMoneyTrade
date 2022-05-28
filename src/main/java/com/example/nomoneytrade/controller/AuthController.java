@@ -161,8 +161,6 @@ public class AuthController {
                 user.getBanned(),
                 user.getPassword(),
                 user.getImagePath(),
-                user.getCity(),
-                user.getAddress(),
                 user.getPhoneNumber()
         ));
     }
