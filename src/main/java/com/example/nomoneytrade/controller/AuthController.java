@@ -3,6 +3,7 @@ package com.example.nomoneytrade.controller;
 import com.example.nomoneytrade.entity.Role;
 import com.example.nomoneytrade.entity.User;
 import com.example.nomoneytrade.imageStorage.StorageService;
+import com.example.nomoneytrade.payload.requests.PostByUser;
 import com.example.nomoneytrade.payload.requests.SignInRequest;
 import com.example.nomoneytrade.payload.requests.SignUpRequest;
 import com.example.nomoneytrade.payload.responses.BaseResponse;
@@ -23,6 +24,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
 import javax.validation.Valid;
 import java.util.HashSet;
 import java.util.regex.Pattern;
@@ -146,11 +148,23 @@ public class AuthController {
         ));
     }
 
-    @GetMapping("/get_user_by_id")
-    public ResponseEntity<User> getUserById(@RequestBody @Valid Long user_id) {
-        User user = userRepository.findById(user_id).orElseThrow(() -> new RuntimeException("User with this id does`t exist"));
+    @PostMapping("/get_user_by_id")
+    public ResponseEntity<UserCredentials> getUserById(@RequestBody @Valid PostByUser postByUser) {
+        User user = userRepository.findById(postByUser.getUserId()).orElseThrow(() -> new RuntimeException("User with this id does`t exist"));
 
-        return ResponseEntity.ok(user); //TODO rix return
+        String jwtCookie = jwtUtils.getCleanJwtCookie().toString();
+
+        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie).body(new UserCredentials(
+                user.getId(),
+                user.getUsername(),
+                user.getEmail(),
+                user.getBanned(),
+                user.getPassword(),
+                user.getImagePath(),
+                user.getCity(),
+                user.getAddress(),
+                user.getPhoneNumber()
+        ));
     }
 
     public Boolean isEmail(String email) {

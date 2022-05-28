@@ -37,7 +37,21 @@ public class OffersController {
         List<Offer> offers;
         Long user_id = getOffersRequest.getUserId();
         try {
-            offers = offersRepository.findByUserId(user_id).orElseThrow(() -> new RuntimeException("Offer not found"));
+            offers = offersRepository.findByBuyerId(user_id).orElseThrow(() -> new RuntimeException("Offer not found"));
+        } catch (RuntimeException e) {
+            return new ResponseEntity<String>("Offer not found", HttpStatus.BAD_REQUEST);
+        }
+
+        String jwtCookie = jwtUtils.getCleanJwtCookie().toString();
+        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie).body(new AllOfferResponse(offers));
+    }
+
+    @PostMapping("/get_to_me_offers")
+    public ResponseEntity<?> getToMeOffers(@RequestBody @Valid GetOffersRequest getOffersRequest) {
+        List<Offer> offers;
+        Long user_id = getOffersRequest.getUserId();
+        try {
+            offers = offersRepository.findByCustomerId(user_id).orElseThrow(() -> new RuntimeException("Offer not found"));
         } catch (RuntimeException e) {
             return new ResponseEntity<String>("Offer not found", HttpStatus.BAD_REQUEST);
         }
@@ -51,10 +65,11 @@ public class OffersController {
         Long postId = makeOfferRequest.getPostId();
         String city = makeOfferRequest.getCity();
         String time = makeOfferRequest.getTime();
-        Long userId = makeOfferRequest.getUserId();
+        Long buyerId = makeOfferRequest.getBuyerId();
+        Long customerId = makeOfferRequest.getCustomerId();
         ConditionEnum state = makeOfferRequest.getState();
 
-        Offer offer = new Offer(postId, city, time, userId, state);
+        Offer offer = new Offer(postId, city, time, buyerId, customerId, state);
 
         offersRepository.save(offer);
 

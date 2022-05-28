@@ -9,5 +9,6 @@ import java.util.Optional;
 
 @Repository
 public interface OffersRepository extends JpaRepository<Offer, Long> {
-    Optional<List<Offer>> findByUserId(Long id);
+    Optional<List<Offer>> findByBuyerId(Long id);
+    Optional<List<Offer>> findByCustomerId(Long id);
 }
