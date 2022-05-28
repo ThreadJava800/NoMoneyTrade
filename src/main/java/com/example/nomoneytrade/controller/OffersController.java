@@ -3,6 +3,7 @@ package com.example.nomoneytrade.controller;
 import com.example.nomoneytrade.entity.Offer;
 import com.example.nomoneytrade.payload.requests.GetOffersRequest;
 import com.example.nomoneytrade.payload.requests.MakeOfferRequest;
+import com.example.nomoneytrade.payload.requests.SetOfferStatus;
 import com.example.nomoneytrade.payload.responses.AllOfferResponse;
 import com.example.nomoneytrade.payload.responses.AllPostResponse;
 import com.example.nomoneytrade.payload.responses.BaseResponse;
@@ -75,5 +76,19 @@ public class OffersController {
 
         String jwtCookie = jwtUtils.getCleanJwtCookie().toString();
         return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie).body(new BaseResponse("Offer has been created"));
+    }
+
+    @PostMapping("/set_offer_status")
+    public ResponseEntity<?> setOfferStatus(@RequestBody @Valid SetOfferStatus setOfferStatus) {
+        Long offerId = setOfferStatus.getOfferId();
+        ConditionEnum state = setOfferStatus.getState();
+
+        Offer offer = offersRepository.getById(offerId);
+        offer.setState(state);
+
+        offersRepository.save(offer);
+
+        String jwtCookie = jwtUtils.getCleanJwtCookie().toString();
+        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie).body(new BaseResponse("Offer has been changed"));
     }
 }
