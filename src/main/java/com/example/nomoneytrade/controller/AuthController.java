@@ -89,8 +89,6 @@ public class AuthController {
                         userDetails.isEnabled(),
                         userDetails.getPassword(),
                         userDetails.getImagePath(),
-                        userDetails.getCity(),
-                        userDetails.getAddress(),
                         userDetails.getPhoneNumber()
                 ));
     }
@@ -108,8 +106,6 @@ public class AuthController {
         String username = signUpRequest.getUsername();
         String password = signUpRequest.getPassword();
         String imagePath = "";
-        String city = signUpRequest.getCity();
-        String address = signUpRequest.getAddress();
         String phoneNumber = signUpRequest.getPhoneNumber();
 
         if (userRepository.existsByEmail(email)) {
@@ -127,7 +123,7 @@ public class AuthController {
             imagePath = "";
         }
 
-        User user = new User(username, email, passwordEncoder.encode(password), imagePath, city, address, phoneNumber);
+        User user = new User(username, email, passwordEncoder.encode(password), imagePath,phoneNumber);
 
         // giving base ROLE_USER to new user
         HashSet<Role> roles = new HashSet<>();
@@ -146,8 +142,6 @@ public class AuthController {
                 user.getBanned(),
                 user.getPassword(),
                 user.getImagePath(),
-                user.getCity(),
-                user.getAddress(),
                 user.getPhoneNumber()
         ));
     }

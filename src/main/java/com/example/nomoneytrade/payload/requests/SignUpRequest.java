@@ -16,22 +16,10 @@ public class SignUpRequest {
     @NotBlank
     private String password;
 
-    private String city;
-
-    private String address;
-
     private String phoneNumber;
-
-    public String getCity() {
-        return city;
-    }
 
     public String getPhoneNumber() {
         return phoneNumber;
-    }
-
-    public String getAddress() {
-        return address;
     }
 
     public String getEmail() {
