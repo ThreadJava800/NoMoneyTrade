@@ -102,6 +102,21 @@ public class AuthController {
         return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie).body(new BaseResponse("You've been signed out."));
     }
 
+    @PostMapping("/set_ava")
+    public ResponseEntity<?> setAva(@RequestPart("user_data") PostByUser postByUser, @RequestParam MultipartFile file) {
+        User user = userRepository.getById(postByUser.getUserId());
+
+        String imagePath = IMAGE_HOST_URI + "avatar_" + user.getUsername() + ".png";
+        storageService.store(file, "avatar_" + user.getUsername() + ".png");
+
+        user.setImagePath(imagePath);
+        userRepository.save(user);
+
+        // base cookies. cleaning them after signing out
+        String jwtCookie = jwtUtils.getCleanJwtCookie().toString();
+        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie).body(new BaseResponse("Yous successfully changes ava."));
+    }
+
     @PostMapping("/signup")
     public ResponseEntity<?> signUpUser(@RequestPart("user_data") SignUpRequest signUpRequest, @RequestParam(required = false) MultipartFile file) {
         String email = signUpRequest.getEmail();
@@ -125,7 +140,7 @@ public class AuthController {
             imagePath = "";
         }
 
-        User user = new User(username, email, passwordEncoder.encode(password), imagePath,phoneNumber);
+        User user = new User(username, email, passwordEncoder.encode(password), imagePath, phoneNumber);
 
         // giving base ROLE_USER to new user
         HashSet<Role> roles = new HashSet<>();
