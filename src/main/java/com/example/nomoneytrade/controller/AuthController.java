@@ -114,7 +114,7 @@ public class AuthController {
 
         // base cookies. cleaning them after signing out
         String jwtCookie = jwtUtils.getCleanJwtCookie().toString();
-        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie).body(new BaseResponse("Yous successfully changes ava."));
+        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie).body(new BaseResponse(imagePath));
     }
 
     @PostMapping("/signup")
