@@ -62,8 +62,8 @@ public class ApiController {
         }
 
         if (file != null) {
-            imagePath = IMAGE_HOST_URI + "post_" + user_id.toString() + '_' + title + ".png";
-            storageService.store(file, "post_" + user_id.toString() + '_' + title + ".png");
+            imagePath = IMAGE_HOST_URI + "post_" + user_id.toString() + '_' + title.replaceAll("\\s+","") + ".png";
+            storageService.store(file, "post_" + user_id.toString() + '_' + title.replaceAll("\\s+","") + ".png");
         }
         else {
             imagePath = "";
