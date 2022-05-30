@@ -23,9 +23,9 @@ public class Offer {
 
     }
 
-    public Offer(Long buyerPostId, Long customerPostId, String city, String time, Long buyerId, Long customerId, ConditionEnum state) {
-        this.buyerPostId = buyerPostId;
+    public Offer(Long customerPostId, Long buyerPostId, String city, String time, Long buyerId, Long customerId, ConditionEnum state) {
         this.customerPostId = customerPostId;
+        this.buyerPostId = buyerPostId;
         this.city = city;
         this.time = time;
         this.buyerId = buyerId;

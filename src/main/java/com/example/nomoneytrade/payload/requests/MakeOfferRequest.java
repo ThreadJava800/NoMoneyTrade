@@ -11,16 +11,16 @@ public class MakeOfferRequest {
     private Long customerId;
     private ConditionEnum state;
 
-    public String getCity() {
-        return city;
-    }
-
     public Long getBuyerPostId() {
         return buyerPostId;
     }
 
     public Long getCustomerPostId() {
         return customerPostId;
+    }
+
+    public String getCity() {
+        return city;
     }
 
     public Long getBuyerId() {

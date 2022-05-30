@@ -98,7 +98,7 @@ public class OffersController {
         Long buyerId = makeOfferRequest.getBuyerId();
         Long customerId = makeOfferRequest.getCustomerId();
         ConditionEnum state = makeOfferRequest.getState();
-
+        
         Offer offer = new Offer(buyerPostId, customerPostId, city, time, buyerId, customerId, state);
 
         offersRepository.save(offer);
