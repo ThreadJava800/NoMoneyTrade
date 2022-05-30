@@ -11,7 +11,8 @@ public class Offer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long offerId;
 
-    private Long postId;
+    private Long buyerPostId;
+    private Long customerPostId;
     private String city;
     private String time;
     private Long buyerId;
@@ -22,8 +23,9 @@ public class Offer {
 
     }
 
-    public Offer(Long postId, String city, String time, Long buyerId, Long customerId, ConditionEnum state) {
-        this.postId = postId;
+    public Offer(Long buyerPostId, Long customerPostId, String city, String time, Long buyerId, Long customerId, ConditionEnum state) {
+        this.buyerPostId = buyerPostId;
+        this.customerPostId = customerPostId;
         this.city = city;
         this.time = time;
         this.buyerId = buyerId;
@@ -39,12 +41,20 @@ public class Offer {
         this.offerId = offerId;
     }
 
-    public Long getPostId() {
-        return postId;
+    public Long getBuyerPostId() {
+        return buyerPostId;
     }
 
-    public void setPostId(Long postId) {
-        this.postId = postId;
+    public void setBuyerPostId(Long buyerPostId) {
+        this.buyerPostId = buyerPostId;
+    }
+
+    public Long getCustomerPostId() {
+        return customerPostId;
+    }
+
+    public void setCustomerPostId(Long customerPostId) {
+        this.customerPostId = customerPostId;
     }
 
     public String getCity() {
