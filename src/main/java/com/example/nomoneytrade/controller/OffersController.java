@@ -63,14 +63,16 @@ public class OffersController {
 
     @PostMapping("/new_offer")
     public ResponseEntity<?> createOffer(@RequestBody @Valid MakeOfferRequest makeOfferRequest) {
-        Long postId = makeOfferRequest.getPostId();
+        Long buyerPostId = makeOfferRequest.getBuyerPostId();
+        Long customerPostId = makeOfferRequest.getBuyerPostId();
         String city = makeOfferRequest.getCity();
         String time = makeOfferRequest.getTime();
         Long buyerId = makeOfferRequest.getBuyerId();
         Long customerId = makeOfferRequest.getCustomerId();
         ConditionEnum state = makeOfferRequest.getState();
 
-        Offer offer = new Offer(postId, city, time, buyerId, customerId, state);
+        //customer, then buyer
+        Offer offer = new Offer(customerPostId, buyerPostId, city, time, buyerId, customerId, state);
 
         offersRepository.save(offer);
 

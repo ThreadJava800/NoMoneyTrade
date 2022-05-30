@@ -3,19 +3,24 @@ package com.example.nomoneytrade.payload.requests;
 import com.example.nomoneytrade.utils.ConditionEnum;
 
 public class MakeOfferRequest {
-    private Long postId;
+    private Long customerPostId;
+    private Long buyerPostId;
     private String city;
     private String time;
     private Long buyerId;
     private Long customerId;
     private ConditionEnum state;
 
-    public String getCity() {
-        return city;
+    public Long getCustomerPostId() {
+        return customerPostId;
     }
 
-    public Long getPostId() {
-        return postId;
+    public Long getBuyerPostId() {
+        return buyerPostId;
+    }
+
+    public String getCity() {
+        return city;
     }
 
     public Long getBuyerId() {
